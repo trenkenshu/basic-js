@@ -4,28 +4,73 @@ const { NotImplementedError } = require('../extensions/index.js');
  * Implement chainMaker object according to task description
  * 
  */
-const chainMaker = {
+ const chainMaker = {
   getLength() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.chain.length;
   },
-  addLink(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  addLink(value) {
+    this.chain = this.chain ?
+      this.chain
+        :
+          [];
+      /*********************** print() ******************************/
+      this.print = function () {
+      let answer = '';
+      
+        for(let i = 0; i < this.chain.length; i++) {
+          this.chain[i] = this.chain[i] == null ?
+            'null'
+              :
+                this.chain[i];
+          answer += i == 0 ? 
+            '( '+this.chain[i].toString()+' )' 
+              :
+                '~~( '+this.chain[i].toString()+' )';
+        }
+      
+      return answer;
+    };
+
+    /*value === null ? 
+      this.chain.push('null') 
+        : 
+          value === false ? 
+            this.chain.push('false')
+            :*/
+              this.chain.push(String(value));
+    
+    return this;
   },
-  removeLink(/* position */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  removeLink(position) {
+    
+    if( position <= 0 || typeof position !== 'number' || !this.chain[position - 1] ) {
+      //c('chain: '+this.chain+' try to remove pos: '+ this.chain[position - 1]+" chain length "+this.chain.length);
+      this.chain = [];
+      throw new Error("You can't remove incorrect link!");
+      
+    } else {
+    //c('chain: '+this.chain+' try to remove pos: '+ position);
+    this.chain.splice(position - 1, 1);
+    //c('look afterwards: '+this.chain);
+    return this; 
+  }
   },
   reverseChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    let reverse = [];
+    for(let i = this.chain.length - 1; i >= 0; i--) {
+      reverse[(this.chain.length - 1) - i] = this.chain[i];
+    }
+    this.chain = reverse;
+    return this;
   },
   finishChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    let result = this.print();
+    this.chain = [];
+    return result;
   }
 };
+
+
 
 module.exports = {
   chainMaker
