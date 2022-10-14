@@ -29,8 +29,7 @@ const { NotImplementedError } = require('../extensions/index.js');
                
         if(Array.isArray(arrayInput[i])) {
             this.level++;
-            //c(arrayInput[i]);
-            //c('going up '+this.level);
+            
             this.maxLevel = this.maxLevel < this.level ? this.level : this.maxLevel;
             
             this.isRecursion = true; 
@@ -40,10 +39,9 @@ const { NotImplementedError } = require('../extensions/index.js');
 
         if(i == arrayInput.length - 1 || arrayInput.length == 0) {
             this.level--;
-            //c(arrayInput[i]);
-            //c('going down '+this.level);
+            
             this.level === 0 ? this.isRecursion = false : this.isRecursion = true;
-            //c('rec:'+this.isRecursion)
+            
         }
           
     };  
