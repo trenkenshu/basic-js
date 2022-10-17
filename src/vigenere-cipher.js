@@ -37,7 +37,7 @@ let c = (...args) =>  {
             throw new Error('Incorrect arguments!');
         }
         
-        console.log('str: ', string, ', key ', key)
+        console.log(this.direction, '- dir, str: ', string, ', key ', key);
 
         let ans = '';
         let keyIndex = 0;
@@ -96,7 +96,7 @@ let c = (...args) =>  {
 
             final = final.split('').reverse().join('');
         }
-        
+        console.log('coded output ', final);
         return final;
     }
     /******************************************** decrypt ************************************/
@@ -105,13 +105,17 @@ let c = (...args) =>  {
             throw new Error('Incorrect arguments!');
         }
         
+        console.log(this.direction, '- dir, decr str: ', string, ',decr key ', key);
+        
         let ans;
         let final = '';
         let ascii = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         string =string.toUpperCase();
         key = key.toUpperCase();
-        if (this.direction === 'reverse') string = string.split('').reverse().join('');
-        //c(key);
+        //if (this.direction === 'reverse') string = string.split('').reverse().join('');
+
+        
+        
         /********************************** NO SPACE  *******************************/
         let noSpaceArr = string.split(' ');
         let noSpaceString = '';
@@ -162,7 +166,7 @@ let c = (...args) =>  {
         }
 
 
-      //if (this.direction === 'reverse') final_ = final_.split('').reverse().join('');
+      if (this.direction === 'reverse') final_ = final_.split('').reverse().join('');
             /* let newFinal = '';
             for(let i = final_.length -1; i >= 0; i--) {
                 newFinal += final_[i];
