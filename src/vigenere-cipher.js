@@ -1,5 +1,17 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
+let c = (...args) =>  {
+    let string = '';
+    args.length == 1 ?
+        console.log(args[0])
+        :
+        console.log(args.reduce((acc, item) => {
+            acc += item+', ';
+            return acc;
+        }, ''))
+    
+}
+
 /**
  * Implement class VigenereCipheringMachine that allows us to create
  * direct and reverse ciphering machines according to task description
@@ -25,6 +37,8 @@ const { NotImplementedError } = require('../extensions/index.js');
             throw new Error('Incorrect arguments!');
         }
         
+        console.log('str: ', string, ', key ', key)
+
         let ans = '';
         let keyIndex = 0;
         let ascii = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -38,6 +52,9 @@ const { NotImplementedError } = require('../extensions/index.js');
         for (let i in noSpaceArr ) {
             noSpaceString += noSpaceArr[i];
         }
+
+        //c(noSpaceString, noSpaceArr)
+
         if(string.length > key.length) {
            let mult =  Math.floor(string.length / key.length) ;
            let oldKey = key;
@@ -59,7 +76,7 @@ const { NotImplementedError } = require('../extensions/index.js');
                 keyIndex++;
             } else {
                 ans += noSpaceString[i];
-                keyIndex = 0;
+                keyIndex++;
             }
         }
         let final ='';
@@ -71,11 +88,13 @@ const { NotImplementedError } = require('../extensions/index.js');
         }
 
         if (this.direction === 'reverse') {
-            let newFinal = '';
+            /*let newFinal = '';
             for(let i = final.length -1; i >= 0; i--) {
                 newFinal += final[i];
             }
-            final = newFinal;
+            final = newFinal;*/
+
+            final = final.split('').reverse().join('');
         }
         
         return final;
@@ -91,7 +110,8 @@ const { NotImplementedError } = require('../extensions/index.js');
         let ascii = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         string =string.toUpperCase();
         key = key.toUpperCase();
-        
+        if (this.direction === 'reverse') string = string.split('').reverse().join('');
+        //c(key);
         /********************************** NO SPACE  *******************************/
         let noSpaceArr = string.split(' ');
         let noSpaceString = '';
@@ -99,7 +119,7 @@ const { NotImplementedError } = require('../extensions/index.js');
             noSpaceString += noSpaceArr[i];
         }
        
-
+        //////////////////////////////////  Enlarge key string //////////////////////////
         if(string.length > key.length) {
            let mult =  Math.floor(string.length / key.length) ;
            let oldKey = key;
@@ -115,6 +135,7 @@ const { NotImplementedError } = require('../extensions/index.js');
             arr[i] = ascii.indexOf(item);
             
         });
+        
         let stringArr = Array.from(noSpaceString);
         stringArr.forEach((item, i, arr) => {
             arr[i] = ascii.indexOf(item);
@@ -132,7 +153,7 @@ const { NotImplementedError } = require('../extensions/index.js');
                 final += ascii[ans];
         }
 
-        let final_ ='';
+        let final_ = '';
         let posInAns = 0;
         for(let i = 0; i <= noSpaceArr.length - 1; i++) {
             final_ += final.slice(posInAns, noSpaceArr[i].length + posInAns);
@@ -141,13 +162,15 @@ const { NotImplementedError } = require('../extensions/index.js');
         }
 
 
-        if (this.direction === 'reverse') {
-            let newFinal = '';
+      //if (this.direction === 'reverse') final_ = final_.split('').reverse().join('');
+            /* let newFinal = '';
             for(let i = final_.length -1; i >= 0; i--) {
                 newFinal += final_[i];
             }
-            final_ = newFinal;
-        }        
+            final_ = newFinal;*/  
+
+            
+             
 
         return final_;
       
